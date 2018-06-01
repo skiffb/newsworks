@@ -49,6 +49,17 @@ class PostsController < ApplicationController
   def show
   end
 
+  def upvote
+    @post = Post.find(params[:post_id])
+    @post.update(votes: (@post.votes + 1))
+    redirect_to posts_path
+  end
+  def downvote
+    @post = Post.find(params[:post_id])
+    @post.update(votes: (@post.votes - 1))
+    redirect_to posts_path
+  end
+
   def edit
     @post = Post.find(params[:post])
   end

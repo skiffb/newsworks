@@ -39,7 +39,8 @@
 
 <p><%= post.text %></p>
 <p>Votes: <%= post.votes %></p>
-<%= link_to "Upvote #{post.title}", post_path(post), method: :patch%>
+<%= link_to "Upvote #{post.title}", post_upvote_path(post), method: :patch%>
+<%= link_to "Downvote #{post.title}", post_downvote_path(post), method: :patch%>
 <% end %>
 
 
