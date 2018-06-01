@@ -50,6 +50,13 @@ class PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:post])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    @post.update(votes: (@post.votes + 1))
+    redirect_to posts_path
   end
 
   private

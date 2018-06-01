@@ -38,6 +38,8 @@
 <h3>Title: <%= post.title %></h3>
 
 <p><%= post.text %></p>
+<p>Votes: <%= post.votes %></p>
+<%= link_to "Upvote #{post.title}", post_path(post), method: :patch%>
 <% end %>
 
 
