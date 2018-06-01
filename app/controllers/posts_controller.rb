@@ -12,7 +12,23 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+
+    @events = Event.all
+    @categories = Category.all
+
+    if params[:query].present?
+      category = Category.find_by(title: params[:query])
+      if category
+        events = Event.where(category_id: category.id)
+        event_ids = []
+        events.each { |event| event_ids << event.id }
+        @posts = Post.where(event_id: event_ids)
+      else
+        @posts = Post.all
+      end
+    else
+      @posts = Post.all
+    end
   end
 
   def show

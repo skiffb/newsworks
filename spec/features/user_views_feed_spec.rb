@@ -1,20 +1,29 @@
 require 'rails_helper'
-feature "User views other users post" do
-  scenario "successfully" do
-    sign_up("person2@example.com")
+
+feature "User views feed" do
+  scenario "sees another post initially" do
     Rails.application.load_seed
-    create_new_event("Newer Event", "Sports", "Pittsburgh, PA")
-    build_post("Newer Event", "New Title", "new text")
-    expect(page).to have_css "h2", text: "Newer Event"
-    log_out
+
+    build_foreign_post
 
 
     sign_up("person@example.com")
-    create_new_event("New Event", "Technology", "Pittsburgh, PA")
-    build_post("New Event", "Title", "text")
-    expect(page).to have_css "h2", text: "New Event"
 
     click_on "View Feed"
     expect(page).to have_css "h2", text: "Newer Event"
   end
+
+  scenario "filters by category" do
+    Rails.application.load_seed
+
+    build_foreign_post
+
+    sign_up("person@example.com")
+
+    click_on "View Feed"
+
+    select "Technology", from: "Category"
+    expect(page).to have_css "h2", text: "Newer Event"
+  end
+
 end

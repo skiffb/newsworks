@@ -1,3 +1,14 @@
-<%= @posts.each do |post| %>
+<h1>Filters!</h1>
+<h3>Filter By Category:</h3>
+<%= form_tag posts_path, method: :get do %>
+  <%= select_tag :query,
+   options_for_select(@categories.map{|x| x.title}, params[:query]),
+   id: "Category",
+   onchange: "this.form.submit();", include_blank: "Category"
+  %>
+<% end %>
+
+<% @posts.each do |post| %>
 <h2><%= post.event.title %></h2>
 <% end %>
+
