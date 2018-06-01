@@ -20,6 +20,8 @@
   <%= submit_tag "Search By Event" %>
 <% end %>
 
+<h3>Search Locations</h3>
+
 <%= form_tag posts_path, method: :get do %>
   <%= text_field_tag :address,
     params[:address],
@@ -30,7 +32,12 @@
 <% end %>
 
 <% @posts.each do |post| %>
-<h2><%= post.event.title %></h2>
+<h2>Event: <%= post.event.title %></h2>
+<h4>Location: <%= post.event.address %></h4>
+<h4>Category: <%= post.event.category.title %></h4>
+<h3>Title: <%= post.title %></h3>
+
+<p><%= post.text %></p>
 <% end %>
 
 
