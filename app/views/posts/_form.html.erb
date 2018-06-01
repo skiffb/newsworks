@@ -1,0 +1,12 @@
+<%= form_for(@post) do |f| %>
+<p>Select an existing event, or create a new one</p>
+<%= f.label :event %>
+<%= f.collection_select :event, Event.order(:title), :title, :title, include_blank: true %>
+<%= link_to "New Event", new_event_path %>
+<%= f.label :title %>
+<%= f.text_field :title %>
+<%= f.label :text %>
+<%= f.text_field :text %>
+<%= f.submit %>
+<% end %>
+

@@ -2,3 +2,4 @@
 <% if current_user %>
 <h2>Welcome <%= current_user.email %></h2>
 <% end %>
+<%= link_to "New Post", new_post_path %>

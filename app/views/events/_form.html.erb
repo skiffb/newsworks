@@ -1,0 +1,9 @@
+<%= form_for(@event) do |f| %>
+<%= f.label :title %>
+<%= f.text_field :title %>
+<%= f.label :category %>
+<%= f.collection_select :category, Category.order(:title), :title, :title, include_blank: true %>
+<%= f.label :address %>
+<%= f.text_field :address %>
+<%= f.submit %>
+<% end %>
