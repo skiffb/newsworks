@@ -1,14 +1,36 @@
 <h1>Filters!</h1>
 <h3>Filter By Category:</h3>
+
 <%= form_tag posts_path, method: :get do %>
-  <%= select_tag :query,
-   options_for_select(@categories.map{|x| x.title}, params[:query]),
-   id: "Category",
-   onchange: "this.form.submit();", include_blank: "Category"
+  <%= select_tag :category,
+   options_for_select(@categories.map{|x| x.title}, params[:category]),
+   id: "Category"
   %>
+  <%= submit_tag "Search By Category" %>
+<% end %>
+
+<h3>Search Events</h3>
+
+<%= form_tag posts_path, method: :get do %>
+  <%= text_field_tag :event,
+    params[:event],
+    id: "Event",
+    placeholder: "search Events"
+  %>
+  <%= submit_tag "Search By Event" %>
+<% end %>
+
+<%= form_tag posts_path, method: :get do %>
+  <%= text_field_tag :address,
+    params[:address],
+    id: "Address",
+    placeholder: "search Addresses"
+  %>
+  <%= submit_tag "Search By Address" %>
 <% end %>
 
 <% @posts.each do |post| %>
 <h2><%= post.event.title %></h2>
 <% end %>
+
 

@@ -16,8 +16,8 @@ class PostsController < ApplicationController
     @events = Event.all
     @categories = Category.all
 
-    if params[:query].present?
-      category = Category.find_by(title: params[:query])
+    if params[:category].present?
+      category = Category.find_by(title: params[:category])
       if category
         events = Event.where(category_id: category.id)
         event_ids = []
@@ -26,9 +26,24 @@ class PostsController < ApplicationController
       else
         @posts = Post.all
       end
+    elsif params[:event].present?
+      event = Event.find_by(title: params[:event])
+      if event
+        @posts = Post.where(event_id: event.id)
+      else
+        @posts = Post.all
+      end
+    elsif params[:address].present?
+        event = Event.find_by(address: params[:address])
+        if event
+          @posts = Post.where(event_id: event.id)
+        else
+          @posts = Post.all
+        end
     else
       @posts = Post.all
     end
+
   end
 
   def show

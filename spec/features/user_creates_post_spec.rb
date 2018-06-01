@@ -6,21 +6,14 @@ feature "User creates post" do
   scenario "with a new event" do
     Rails.application.load_seed
 
-    sign_up("person@example.com")
-
-    create_new_event("New Event", "Technology", "Pittsburgh, PA")
-    build_post("New Event", "Title", "text")
+    build_my_post
     expect(page).to have_css "h2", text: "New Event"
   end
 
   scenario "with an existing event" do
     Rails.application.load_seed
 
-    sign_up("person@example.com")
-
-    create_new_event("New Event", "Technology", "Pittsburgh, PA")
-    build_post("New Event", "Title", "text")
-    expect(page).to have_css "h2", text: "New Event"
+    build_my_post
 
     log_out
 
