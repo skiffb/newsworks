@@ -1,12 +1,49 @@
-<h1><%= current_user.email %></h1>
-<% current_user.posts.each do |post| %>
-  <h2>Event: <%= post.event.title %></h2>
-  <h4>Location: <%= post.event.address %></h4>
-  <h4>Category: <%= post.event.category.title %></h4>
-  <h3>Title: <%= post.title %></h3>
+<div class="container">
+  <h1><%= current_user.email %></h1>
+  <h2>My Posts</h2>
 
-  <p><%= post.text %></p>
-  <% end %>
+    <%= link_to "View Feed", posts_path, class: "btn btn-primary"%>
 
-  <%= link_to "View Feed", posts_path %>
 
+    <% current_user.posts.each do |post| %>
+    <div class="post-container">
+
+      <div class="name-container">
+
+        <h2>Event: <%= post.event.title %></h2>
+        <h5 style="float:right; margin-top:35px">Created at: <%= post.created_at.to_date %></h5>
+      </div>
+      <div class="location-container">
+        <h4>Location: <%= post.event.address %></h4>
+        <h4 style="margin-left:100px; float:right">Category: <%= post.event.category.title %></h4>
+      </div>
+      <h2 class="text-center">Title: <%= post.title %></h2>
+
+      <p class="text-center"><%= post.text %></p>
+    </div>
+
+    <% end %>
+
+
+
+</div>
+
+<style>
+
+.name-container h2{
+  display: inline-block;
+}
+.name-container h5{
+  display: inline-block;
+  margin-left:50px;
+}
+.location-container h4{
+  display: inline-block;
+}
+.post-container {
+  /*display: flex;*/
+  justify-content: center;
+  align-items: center;
+}
+
+</style>
