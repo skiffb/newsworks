@@ -1,8 +1,11 @@
 <div class="container">
+  <div class="header-container">
   <h1><%= current_user.email %></h1>
-  <h2>My Posts</h2>
+  <%= link_to "View Feed", posts_path, class: "btn btn-primary"%>
 
-    <%= link_to "View Feed", posts_path, class: "btn btn-primary"%>
+  <h2>My Posts</h2>
+  </div>
+
 
 
     <% current_user.posts.each do |post| %>
@@ -42,8 +45,11 @@
 }
 .post-container {
   /*display: flex;*/
-  justify-content: center;
-  align-items: center;
+  /*justify-content: center;
+  align-items: center;*/
+}
+.header-container{
+  text-align: center;
 }
 
 </style>
