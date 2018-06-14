@@ -1,86 +1,91 @@
-<h1 class="text-center">Posts!</h1>
+<div class="container">
+  <h1 class="text-center">Posts!</h1>
 
-<div class="container filters-container">
-  <div class="category">
-    <h3>Filter By Category:</h3>
+  <div class="container filters-container">
+    <div class="category">
+      <h3>Filter By Category:</h3>
 
+      <%= form_tag posts_path, method: :get do %>
+      <%= select_tag :category,
+      options_for_select(@categories.map{|x| x.title}, params[:category]),
+      id: "Category"
+      %>
+      <%= submit_tag "Search By Category" %>
+      <% end %>
+    </div>
+    <div class="events" style="padding-left:20px;">
+
+      <h3>Search Events</h3>
+
+      <%= form_tag posts_path, method: :get do %>
+      <%= text_field_tag :event,
+      params[:event],
+      id: "Event",
+      placeholder: "search Events"
+      %>
+      <%= submit_tag "Search By Event" %>
+      <% end %>
+    </div>
+    <div class="locations" style="padding-left:20px;">
+
+      <h3>Search Locations</h3>
+
+      <%= form_tag posts_path, method: :get do %>
+      <%= text_field_tag :address,
+      params[:address],
+      id: "Address",
+      placeholder: "search Addresses"
+      %>
+      <%= submit_tag "Search By Address" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="sorter-container">
+
+    <h3>Order By</h3>
     <%= form_tag posts_path, method: :get do %>
-    <%= select_tag :category,
-    options_for_select(@categories.map{|x| x.title}, params[:category]),
-    id: "Category"
+    <%= select_tag :order,
+    options_for_select(["Highest Votes","Newest"], params[:order]),
+    id: "Order By"
     %>
-    <%= submit_tag "Search By Category" %>
+    <%= submit_tag "Order" %>
     <% end %>
   </div>
-  <div class="events" style="padding-left:20px;">
+  <div class="container feed-container">
 
-    <h3>Search Events</h3>
+    <% @posts.each do |post| %>
 
-    <%= form_tag posts_path, method: :get do %>
-    <%= text_field_tag :event,
-    params[:event],
-    id: "Event",
-    placeholder: "search Events"
-    %>
-    <%= submit_tag "Search By Event" %>
+    <div class="post-container">
+
+      <div class="name-container">
+
+        <h2>Event: <%= post.event.title %></h2>
+        <h5 style="float:right; margin-top:35px">Created at: <%= post.created_at.to_date %></h5>
+      </div>
+
+      <div class="location-container">
+        <h4>Location: <%= post.event.address %></h4>
+        <h4 style="margin-left:100px; float:right">Category: <%= post.event.category.title %></h4>
+      </div>
+
+      <div class="text-container">
+        <h2 class="text-center">Title: <%= post.title %></h2>
+
+        <p class="text-center"><%= post.text %></p>
+      </div>
+
+      <div class="votes-container">
+
+        <p>Votes: <%= post.votes %></p>
+        <%= link_to "", post_upvote_path(post), method: :patch, class: "fas fa-thumbs-up"%>
+        <%= link_to "", post_downvote_path(post), method: :patch, class: "fas fa-thumbs-down"%>
+      </div>
+
+    </div>
+
     <% end %>
   </div>
-  <div class="locations" style="padding-left:20px;">
-
-    <h3>Search Locations</h3>
-
-    <%= form_tag posts_path, method: :get do %>
-    <%= text_field_tag :address,
-    params[:address],
-    id: "Address",
-    placeholder: "search Addresses"
-    %>
-    <%= submit_tag "Search By Address" %>
-    <% end %>
-  </div>
-</div>
-
-<h3>Order By</h3>
-<%= form_tag posts_path, method: :get do %>
-<%= select_tag :order,
-options_for_select(["Highest Votes","Newest"], params[:order]),
-id: "Order By"
-%>
-<%= submit_tag "Order" %>
-<% end %>
-<div class="container feed-container">
-
-  <% @posts.each do |post| %>
-
-  <div class="post-container">
-
-    <div class="name-container">
-
-      <h2>Event: <%= post.event.title %></h2>
-      <h5 style="float:right; margin-top:35px">Created at: <%= post.created_at.to_date %></h5>
-    </div>
-
-    <div class="location-container">
-      <h4>Location: <%= post.event.address %></h4>
-      <h4 style="margin-left:100px; float:right">Category: <%= post.event.category.title %></h4>
-    </div>
-
-    <div class="text-container">
-      <h2 class="text-center">Title: <%= post.title %></h2>
-
-      <p class="text-center"><%= post.text %></p>
-    </div>
-
-    <div class="votes-container">
-
-      <p>Votes: <%= post.votes %></p>
-      <%= link_to "Upvote #{post.title}", post_upvote_path(post), method: :patch%>
-      <%= link_to "Downvote #{post.title}", post_downvote_path(post), method: :patch%>
-    </div>
-
-  </div>
-
-<% end %>
 </div>
 
 <style>
@@ -104,6 +109,9 @@ id: "Order By"
   align-items: center;*/
 }
 .header-container{
+  text-align: center;
+}
+.sorter-container{
   text-align: center;
 }
 </style>
