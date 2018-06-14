@@ -7,7 +7,7 @@ feature "User creates post" do
     Rails.application.load_seed
 
     build_my_post
-    expect(page).to have_css "h2", text: "New Event"
+    expect(page).to have_css "h2", text: "My Event"
   end
 
   scenario "with an existing event" do
@@ -19,8 +19,8 @@ feature "User creates post" do
 
     sign_up("person2@example.com")
 
-    build_post("New Event", "New Title", "new text")
-    expect(page).to have_css "h2", text: "New Event"
+    build_post("My Event", "New Title", "new text")
+    expect(page).to have_css "h2", text: "My Event"
 
   end
 end

@@ -44,6 +44,21 @@ class PostsController < ApplicationController
       @posts = Post.all
     end
 
+
+    if params[:order].present?
+      if params[:order] == "Highest Votes"
+        @posts = @posts.sort_by { |post| post.votes }
+        @posts.reverse!
+      elsif params[:order] == "Newest"
+        @posts = @posts.sort_by { |post| post.created_at}
+        @posts.reverse!
+      end
+    else
+      @posts = @posts.sort_by { |post| post.votes }
+      @posts.reverse!
+    end
+
+
   end
 
   def show

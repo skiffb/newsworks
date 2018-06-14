@@ -8,7 +8,7 @@ feature "User votes on post" do
     sign_up("person@example.com")
 
     click_on "View Feed"
-    click_on "Upvote New Title"
+    click_on "Upvote Foreign Title"
     expect(page).to have_css "p", text: "Votes: 1"
   end
   scenario "downvote" do
@@ -18,7 +18,7 @@ feature "User votes on post" do
     sign_up("person@example.com")
 
     click_on "View Feed"
-    click_on "Downvote New Title"
+    click_on "Downvote Foreign Title"
     expect(page).to have_css "p", text: "Votes: -1"
   end
 end
